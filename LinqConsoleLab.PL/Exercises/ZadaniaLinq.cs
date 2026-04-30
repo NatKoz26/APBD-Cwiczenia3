@@ -110,7 +110,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie06_CzyWszyscyProwadzacyMajaKatedre()
     {
-        throw Niezaimplementowano(nameof(Zadanie06_CzyWszyscyProwadzacyMajaKatedre));
+        var wszyscy = DaneUczelni.Prowadzacy
+            .All(p=> !string.IsNullOrWhiteSpace(p.Katedra));
+        
+        return new[]{wszyscy ? "Tak" : "Nie"};
     }
 
     /// <summary>
@@ -124,7 +127,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie07_LiczbaAktywnychZapisow()
     {
-        throw Niezaimplementowano(nameof(Zadanie07_LiczbaAktywnychZapisow));
+        var count = DaneUczelni.Zapisy
+            .Count(z=>z.CzyAktywny);
+        
+        return new[]{$"Liczba aktywnych zapisów: {count}"};
     }
 
     /// <summary>
@@ -138,7 +144,11 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie08_UnikalneMiastaStudentow()
     {
-        throw Niezaimplementowano(nameof(Zadanie08_UnikalneMiastaStudentow));
+        return DaneUczelni.Studenci
+            .Select(s=>s.Miasto)
+            .Distinct()
+            .OrderBy(m=>m);
+        
     }
 
     /// <summary>
